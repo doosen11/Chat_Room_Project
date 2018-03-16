@@ -26,7 +26,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.list_box_user = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -56,20 +56,20 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Log";
             // 
-            // textBox2
+            // list_box_user
             // 
-            this.textBox2.Location = new System.Drawing.Point(453, 35);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(210, 205);
-            this.textBox2.TabIndex = 5;
+            this.list_box_user.FormattingEnabled = true;
+            this.list_box_user.Location = new System.Drawing.Point(453, 35);
+            this.list_box_user.Name = "list_box_user";
+            this.list_box_user.Size = new System.Drawing.Size(210, 238);
+            this.list_box_user.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 465);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.list_box_user);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -85,7 +85,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ListBox list_box_user;
     }
 }
 

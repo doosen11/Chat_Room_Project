@@ -30,7 +30,7 @@ namespace Chat_Server {
         }
         private void textBox1_TextChanged(object sender, EventArgs e) {
             //log text
-            //hello this is a git test
+            
 
         }
         private void start_server() {
@@ -56,7 +56,7 @@ namespace Chat_Server {
                 textBox1.AppendText("Client No:" + threads.ToString() + " started! \r\n");
                 textBox1.Update();
             }
-            
+        }
         private void handle_msgReceived(){
 
             if (defines.message_arrived == true)
@@ -65,11 +65,11 @@ namespace Chat_Server {
                 string[] msg_fields = defines.client_message.Split('>');
                 if (msg_fields[2] == "login")
                 {
-                    textBox2.Items.Add(msg_fields[0]); //add login name in the source field
+                    list_box_user.Items.Add(msg_fields[0]); //add login name in the source field
                 }
                 else if (msg_fields[2] == "logout")
                 {
-                    textBox2.Items.Remove(msg_fields[0]);
+                    list_box_user.Items.Remove(msg_fields[0]);
                 }
                 else if (msg_fields[2] == "msg")
                 {
@@ -82,12 +82,12 @@ namespace Chat_Server {
                     // do nothing here for other requests
                 }
 
-                if (this.textBox2.Items.Count != 0)
+                if (this.list_box_user.Items.Count != 0)
                 {
                     defines.user_list = "";
-                    for (int i = 0; i < this.textBox2.Items.Count; i++)
+                    for (int i = 0; i < this.list_box_user.Items.Count; i++)
                     {
-                        defines.user_list += this.textBox2.Items[i] + "/";
+                        defines.user_list += this.list_box_user.Items[i] + "/";
 
                     }
                     //remove last "/"
@@ -97,7 +97,7 @@ namespace Chat_Server {
                 defines.message_arrived = false;
             }
         }
-       }
+       
         static readonly object _lock = new object();
         public class ConnectionThread {
             public TcpListener thread_listener;
