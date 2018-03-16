@@ -30,6 +30,7 @@ namespace Chat_Server {
         }
         private void textBox1_TextChanged(object sender, EventArgs e) {
             //log text
+            //hello this is a git test
 
         }
         private void start_server() {
