@@ -14,6 +14,19 @@ namespace Chat_Room {
             InitializeComponent();
         }
 
+        //Records username
+        string username;
+        private void Login_button_Click(object sender, EventArgs e)
+        {
+            username = Text_Input.Text;
+            Current_User_textbox.Text = "This User: " + username;
+        }
+
+        private void Send_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
        
     }
 }

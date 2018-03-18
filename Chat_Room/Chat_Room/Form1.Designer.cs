@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.Public_Chat_textbox = new System.Windows.Forms.TextBox();
             this.Private_Chat_textbox = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.Text_Input = new System.Windows.Forms.TextBox();
             this.User_Status_textbox = new System.Windows.Forms.TextBox();
             this.Current_User_textbox = new System.Windows.Forms.TextBox();
             this.Login_button = new System.Windows.Forms.Button();
@@ -55,12 +55,12 @@
             this.Private_Chat_textbox.Size = new System.Drawing.Size(313, 170);
             this.Private_Chat_textbox.TabIndex = 1;
             // 
-            // textBox3
+            // Text_Input
             // 
-            this.textBox3.Location = new System.Drawing.Point(297, 482);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(313, 20);
-            this.textBox3.TabIndex = 2;
+            this.Text_Input.Location = new System.Drawing.Point(297, 482);
+            this.Text_Input.Name = "Text_Input";
+            this.Text_Input.Size = new System.Drawing.Size(313, 20);
+            this.Text_Input.TabIndex = 2;
             // 
             // User_Status_textbox
             // 
@@ -86,6 +86,7 @@
             this.Login_button.TabIndex = 5;
             this.Login_button.Text = "Login";
             this.Login_button.UseVisualStyleBackColor = true;
+            this.Login_button.Click += new System.EventHandler(this.Login_button_Click);
             // 
             // Logout_button
             // 
@@ -140,6 +141,7 @@
             this.Send_button.TabIndex = 11;
             this.Send_button.Text = "Send";
             this.Send_button.UseVisualStyleBackColor = true;
+            this.Send_button.Click += new System.EventHandler(this.Send_button_Click);
             // 
             // label3
             // 
@@ -176,7 +178,7 @@
             this.Controls.Add(this.Login_button);
             this.Controls.Add(this.Current_User_textbox);
             this.Controls.Add(this.User_Status_textbox);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.Text_Input);
             this.Controls.Add(this.Private_Chat_textbox);
             this.Controls.Add(this.Public_Chat_textbox);
             this.Name = "Form1";
@@ -190,7 +192,7 @@
 
         private System.Windows.Forms.TextBox Public_Chat_textbox;
         private System.Windows.Forms.TextBox Private_Chat_textbox;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox Text_Input;
         private System.Windows.Forms.TextBox User_Status_textbox;
         private System.Windows.Forms.TextBox Current_User_textbox;
         private System.Windows.Forms.Button Login_button;
