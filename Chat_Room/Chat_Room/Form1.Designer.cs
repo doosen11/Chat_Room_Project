@@ -26,7 +26,6 @@
             this.Public_Chat_textbox = new System.Windows.Forms.TextBox();
             this.Private_Chat_textbox = new System.Windows.Forms.TextBox();
             this.Text_Input = new System.Windows.Forms.TextBox();
-            this.User_Status_textbox = new System.Windows.Forms.TextBox();
             this.Current_User_textbox = new System.Windows.Forms.TextBox();
             this.Login_button = new System.Windows.Forms.Button();
             this.Logout_button = new System.Windows.Forms.Button();
@@ -37,6 +36,7 @@
             this.Send_button = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.user_list = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // Public_Chat_textbox
@@ -61,15 +61,6 @@
             this.Text_Input.Name = "Text_Input";
             this.Text_Input.Size = new System.Drawing.Size(313, 20);
             this.Text_Input.TabIndex = 2;
-            // 
-            // User_Status_textbox
-            // 
-            this.User_Status_textbox.BackColor = System.Drawing.Color.LightGray;
-            this.User_Status_textbox.Location = new System.Drawing.Point(12, 48);
-            this.User_Status_textbox.Multiline = true;
-            this.User_Status_textbox.Name = "User_Status_textbox";
-            this.User_Status_textbox.Size = new System.Drawing.Size(166, 217);
-            this.User_Status_textbox.TabIndex = 3;
             // 
             // Current_User_textbox
             // 
@@ -161,12 +152,22 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Text Input";
             // 
+            // user_list
+            // 
+            this.user_list.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.user_list.FormattingEnabled = true;
+            this.user_list.Location = new System.Drawing.Point(15, 48);
+            this.user_list.Name = "user_list";
+            this.user_list.Size = new System.Drawing.Size(203, 251);
+            this.user_list.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(622, 576);
+            this.Controls.Add(this.user_list);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Send_button);
@@ -177,7 +178,6 @@
             this.Controls.Add(this.Logout_button);
             this.Controls.Add(this.Login_button);
             this.Controls.Add(this.Current_User_textbox);
-            this.Controls.Add(this.User_Status_textbox);
             this.Controls.Add(this.Text_Input);
             this.Controls.Add(this.Private_Chat_textbox);
             this.Controls.Add(this.Public_Chat_textbox);
@@ -193,7 +193,6 @@
         private System.Windows.Forms.TextBox Public_Chat_textbox;
         private System.Windows.Forms.TextBox Private_Chat_textbox;
         private System.Windows.Forms.TextBox Text_Input;
-        private System.Windows.Forms.TextBox User_Status_textbox;
         private System.Windows.Forms.TextBox Current_User_textbox;
         private System.Windows.Forms.Button Login_button;
         private System.Windows.Forms.Button Logout_button;
@@ -204,6 +203,7 @@
         private System.Windows.Forms.Button Send_button;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox user_list;
     }
 }
 

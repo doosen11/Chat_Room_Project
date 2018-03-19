@@ -45,6 +45,7 @@ namespace Chat_Server {
             while (true) {
                 while (!server.Pending()) { 
                     //handle recieved messages
+                    handle_msgReceived();
                     Application.DoEvents();
                 }
                 threads++;
@@ -61,7 +62,7 @@ namespace Chat_Server {
 
             if (defines.message_arrived == true)
             {
-                textBox1.AppendText( defines.client_message);
+                this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
                 if (msg_fields[2] == "login")
                 {
