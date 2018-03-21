@@ -129,6 +129,7 @@ namespace Chat_Server {
                         defines.message_arrived = true;
                     }
                     if (message_field[2] == "logout") {
+
                         break;
                     }
                     else if (message_field[2] == "user_list") {

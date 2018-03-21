@@ -46,6 +46,7 @@
             this.Public_Chat_textbox.Name = "Public_Chat_textbox";
             this.Public_Chat_textbox.Size = new System.Drawing.Size(313, 159);
             this.Public_Chat_textbox.TabIndex = 0;
+            this.Public_Chat_textbox.TextChanged += new System.EventHandler(this.Public_Chat_textbox_TextChanged);
             // 
             // Private_Chat_textbox
             // 
@@ -160,6 +161,7 @@
             this.user_list.Name = "user_list";
             this.user_list.Size = new System.Drawing.Size(203, 251);
             this.user_list.TabIndex = 14;
+            this.user_list.SelectedIndexChanged += new System.EventHandler(this.user_list_SelectedIndexChanged);
             // 
             // Form1
             // 

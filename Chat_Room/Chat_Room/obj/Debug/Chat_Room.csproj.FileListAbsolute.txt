@@ -12,3 +12,9 @@ G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\D
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe.config
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.pdb
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csprojResolveAssemblyReference.cache
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Form1.resources
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Properties.Resources.resources
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
