@@ -12,6 +12,9 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
+using Microsoft.VisualBasic;
+
+
 
 
 namespace Chat_Room {
@@ -76,9 +79,18 @@ namespace Chat_Room {
         
         private void Login_button_Click(object sender, EventArgs e)
         {
-            username = Text_Input.Text;
-            Current_User_textbox.Text = "This User: " + username;
+           // username = Text_Input.Text;
+            //Current_User_textbox.Text = "This User: " + username;
 
+            do
+            {
+                username = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
+                Application.DoEvents();
+
+
+            } while (username == "");
+            
+            
             //testing code for initial server connection and text sending
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
