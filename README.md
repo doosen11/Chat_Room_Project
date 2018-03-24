@@ -22,12 +22,12 @@
    * Work Done:
    
          None.
-4. Update Client User List
-   * The list of users logged in to the chat room needs to update everytime a user logins into the server.
-   * This could maybe implemented by the server sending a message to the clients that tells them to update their lists AND NOT print it out to the chat text window.
+4. ~~Update Client User List~~
+   * ~~The list of users logged in to the chat room needs to update everytime a user logins into the server.~~
+   * ~~This could maybe implemented by the server sending a message to the clients that tells them to update their lists AND NOT print it out to the chat text window.~~
    * Work Done:
-   
-         None.
+          
+         This is working now.
 5. Private Chat
    * Request Private chat and Logout Private Chat buttons need to be implemented. 
    * The user should click on a name in the current user list and click the request button.
