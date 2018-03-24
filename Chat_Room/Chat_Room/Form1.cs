@@ -89,6 +89,11 @@ namespace Chat_Room {
 
 
             } while (username == "");
+
+            Current_User_textbox.Text = username;
+            Application.DoEvents();
+
+            Login_button.Enabled = false;
             
             
             //testing code for initial server connection and text sending
