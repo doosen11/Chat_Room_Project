@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.Public_Chat_textbox = new System.Windows.Forms.TextBox();
             this.Private_Chat_textbox = new System.Windows.Forms.TextBox();
             this.Text_Input = new System.Windows.Forms.TextBox();
@@ -37,6 +38,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.user_list = new System.Windows.Forms.ListBox();
+            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // Public_Chat_textbox
@@ -97,6 +100,7 @@
             this.Request_Private_Chat_button.TabIndex = 7;
             this.Request_Private_Chat_button.Text = "Request Private Chat";
             this.Request_Private_Chat_button.UseVisualStyleBackColor = true;
+            this.Request_Private_Chat_button.Click += new System.EventHandler(this.Request_Private_Chat_button_Click);
             // 
             // End_Private_Chat_button
             // 
@@ -106,6 +110,7 @@
             this.End_Private_Chat_button.TabIndex = 8;
             this.End_Private_Chat_button.Text = "End Private Chat";
             this.End_Private_Chat_button.UseVisualStyleBackColor = true;
+            this.End_Private_Chat_button.Click += new System.EventHandler(this.End_Private_Chat_button_Click);
             // 
             // label1
             // 
@@ -155,13 +160,17 @@
             // 
             // user_list
             // 
-            this.user_list.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.user_list.BackColor = System.Drawing.SystemColors.HighlightText;
             this.user_list.FormattingEnabled = true;
             this.user_list.Location = new System.Drawing.Point(15, 48);
             this.user_list.Name = "user_list";
             this.user_list.Size = new System.Drawing.Size(203, 251);
             this.user_list.TabIndex = 14;
             this.user_list.SelectedIndexChanged += new System.EventHandler(this.user_list_SelectedIndexChanged);
+            // 
+            // form1BindingSource
+            // 
+            this.form1BindingSource.DataSource = typeof(Chat_Room.Form1);
             // 
             // Form1
             // 
@@ -185,6 +194,7 @@
             this.Controls.Add(this.Public_Chat_textbox);
             this.Name = "Form1";
             this.Text = "Chat Room";
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +215,8 @@
         private System.Windows.Forms.Button Send_button;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox user_list;
+        public System.Windows.Forms.ListBox user_list;
+        private System.Windows.Forms.BindingSource form1BindingSource;
     }
 }
 

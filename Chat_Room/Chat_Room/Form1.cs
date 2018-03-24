@@ -12,10 +12,13 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
+
+
 namespace Chat_Room {
     public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
+            InitTimer();
         }
 
         //variables for server connection and sending data
@@ -23,9 +26,54 @@ namespace Chat_Room {
         byte[] bdata = new byte[1024];
         NetworkStream stream;
         StreamWriter writer;
+        public List<string> _items = new List<string>();
+        private System.Windows.Forms.Timer user_list_timer;
+        // user_list = new ListBox();
+        
+        /************************
+         * The function below is a timer for updating the user list every 2 seconds 
+         ************************ */
+        
+        public void InitTimer() {
+            user_list_timer = new System.Windows.Forms.Timer();
+            user_list_timer.Tick += new EventHandler(update_user_list);       
+            user_list_timer.Interval = 2000;
+            user_list_timer.Start();
+        }
+        private void update_user_list(object sender, EventArgs e) {
+           
+            if (username != "") {
+                string msg;
+                msg = username + ">" + "server" + ">user_list>";
+                writer.Write(msg);
+                writer.Flush();
+                Application.DoEvents();
+                bdata = new byte[1024];
+                int recv = server.Receive(bdata);
+                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
 
+                int last_i = received_msg.LastIndexOf('>');
+
+                string[] u_list;
+                u_list = received_msg.Substring(last_i + 1).Split('/');
+
+                user_list.Items.Clear();
+                for (int i = 0; i < u_list.Length; i++) {
+                    user_list.Items.Add(u_list[i]);
+                }
+            }
+
+        }
+
+        /** *************************
+         * END UPDATE USER LIST STUFF
+         **************************** **/
         //Records username
         string username = "";
+        
+        
+       
+        
         private void Login_button_Click(object sender, EventArgs e)
         {
             username = Text_Input.Text;
@@ -86,6 +134,14 @@ namespace Chat_Room {
         }
 
         private void user_list_SelectedIndexChanged(object sender, EventArgs e) {
+            
+        }
+
+        private void Request_Private_Chat_button_Click(object sender, EventArgs e) {
+
+        }
+
+        private void End_Private_Chat_button_Click(object sender, EventArgs e) {
 
         }
 

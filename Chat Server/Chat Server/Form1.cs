@@ -137,6 +137,7 @@ namespace Chat_Server {
                         msg = "server>all>user_list>" + defines.user_list;
                         writer.Write(msg);
                         writer.Flush();
+                        
                     }
                     else if (message_field[2] == "last_msg") {
                         string msg;
@@ -150,6 +151,8 @@ namespace Chat_Server {
                         writer.Write("Okay Client #" + thread_count.ToString() + "; \r\n Received: " + str_recv);
                         writer.Flush();
                     }
+
+
                 }
                 writer.Close();
                 stream.Close();
