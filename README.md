@@ -2,6 +2,33 @@
 
 
 ## Documentation
+1. **Server Usage**
+  * *Starting the Server* 
+    * Starting the server is a simple task, simply launch the program and everything else is automated.
+  
+  * *Tracking Users*
+    * Connected users will appear in the right-hand window of the server. This continually updates to show the correct user listing.
+    * Once a user is connected, the server will provide an notification in the log.
+   
+  * *
+  
+2. **Client Usage**
+  * *User Status*
+    * The client program provides a windows which shows all currently connected users.
+    
+  * *The Buttons*
+    * *Login*
+        * The login button provides a way for the user to connect to the server. Once this button is pressed, a new window appears which prompts the user to enter a username and connect to the server. Once a name is entered, the programs automatically attempts to connect to the server and login using that name.
+    * *Logout*
+        * The logout button provides a method for the user to disconnect from the server.
+    * *Request Private Chat*
+        * This button allows for a user to request a private chat with a user of their choice on the server.
+  
+  * *Public chat*
+    * The text input at the bottom of the window allows for the user to output chat that everyone connected to the server can see. Once connected, all a user has to do is enter their chat into the textbox, and then click "Send".
+       
+        
+
 
 ## Todo list:
 1. Login pop-up window
