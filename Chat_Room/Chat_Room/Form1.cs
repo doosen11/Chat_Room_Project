@@ -162,6 +162,18 @@ namespace Chat_Room {
 
         }
 
+        private void Logout_button_Click(object sender, EventArgs e)
+        {
+            string msg;
+            msg = username + ">" + "server" + ">logout>";
+            writer.Write(msg);
+            writer.Flush();
+
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
+            Application.Exit();
+        }
+
        
     }
 }
