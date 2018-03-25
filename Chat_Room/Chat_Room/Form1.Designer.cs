@@ -91,6 +91,7 @@
             this.Logout_button.TabIndex = 6;
             this.Logout_button.Text = "Logout";
             this.Logout_button.UseVisualStyleBackColor = true;
+            this.Logout_button.Click += new System.EventHandler(this.Logout_button_Click);
             // 
             // Request_Private_Chat_button
             // 
