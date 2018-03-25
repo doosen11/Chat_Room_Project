@@ -23,6 +23,9 @@
         * The logout button provides a method for the user to disconnect from the server.
     * *Request Private Chat*
         * This button allows for a user to request a private chat with a user of their choice on the server.
+    * *End Private Chat*
+        * Ends the private chat.
+     
   
   * *Public chat*
     * The text input at the bottom of the window allows for the user to output chat that everyone connected to the server can see. Once connected, all a user has to do is enter their chat into the textbox, and then click "Send".
