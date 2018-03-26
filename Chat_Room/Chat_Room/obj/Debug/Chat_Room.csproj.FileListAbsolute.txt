@@ -34,3 +34,12 @@ C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debu
 C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Form1.resources
 C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Properties.Resources.resources
 C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe.config
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.pdb
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csprojResolveAssemblyReference.cache
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Form1.resources
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Properties.Resources.resources
+C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache

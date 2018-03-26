@@ -64,13 +64,15 @@ namespace Chat_Server {
             {
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
+                string[] user = msg_fields[0].Split('#'); ;
                 if (msg_fields[2] == "login")
                 {
-                    list_box_user.Items.Add(msg_fields[0]); //add login name in the source field
+                    
+                    list_box_user.Items.Add(user[0]); //add login name in the source field
                 }
                 else if (msg_fields[2] == "logout")
                 {
-                    list_box_user.Items.Remove(msg_fields[0]);
+                    list_box_user.Items.Remove(user[0]);
                 }
                 else if (msg_fields[2] == "msg")
                 {

@@ -34,9 +34,10 @@ namespace Chat_Room {
         private System.Windows.Forms.Timer user_list_timer;
 
         //Records username
+        string username1 = "";
         string username = "";
-
         string old_msg = "";
+        string status = "public";
         // user_list = new ListBox();
         
         /************************
@@ -114,7 +115,8 @@ namespace Chat_Room {
 
           //  do
            // {
-                username = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
+                username1 = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
+                username = username1 + "#" + status;
                 Application.DoEvents();
 
 
