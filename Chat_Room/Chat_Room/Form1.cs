@@ -31,6 +31,11 @@ namespace Chat_Room {
         StreamWriter writer;
         public List<string> _items = new List<string>();
         private System.Windows.Forms.Timer user_list_timer;
+
+        //Records username
+        string username = "";
+
+        string old_msg = "";
         // user_list = new ListBox();
         
         /************************
@@ -39,7 +44,8 @@ namespace Chat_Room {
         
         public void InitTimer() {
             user_list_timer = new System.Windows.Forms.Timer();
-            user_list_timer.Tick += new EventHandler(update_user_list);       
+            user_list_timer.Tick += new EventHandler(update_user_list);
+            user_list_timer.Tick += new EventHandler(get_messages);
             user_list_timer.Interval = 2000;
             user_list_timer.Start();
         }
@@ -71,8 +77,32 @@ namespace Chat_Room {
         /** *************************
          * END UPDATE USER LIST STUFF
          **************************** **/
-        //Records username
-        string username = "";
+
+        private void get_messages(object sender, EventArgs e) {
+            
+
+            if (username != "") {
+                string msg;
+                msg = username + ">" + "server" + ">last_msg>null";
+                writer.Write(msg);
+                writer.Flush();
+                Application.DoEvents();
+                //Public_Chat_textbox.AppendText("Client sent: " + msg + "\r\n");
+                // wait for server response
+                bdata = new byte[1024];
+                int recv = server.Receive(bdata);
+                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+                //old_msg = received_msg;
+                if (old_msg != received_msg) {
+                    Public_Chat_textbox.AppendText(received_msg + "\r\n");
+                    Application.DoEvents();
+                }
+                old_msg = received_msg;
+            }
+
+
+        }
+        
         
         
        
@@ -136,7 +166,7 @@ namespace Chat_Room {
             writer.Write(msg);
             writer.Flush();
 
-            Public_Chat_textbox.Text += "Client sent: " + Text_Input.Text + "\r\n";
+           // Public_Chat_textbox.Text += "Client sent: " + Text_Input.Text + "\r\n";
             Application.DoEvents();
             bdata = new byte[1024];
             int recv = server.Receive(bdata);
@@ -219,6 +249,10 @@ namespace Chat_Room {
             server.Shutdown(SocketShutdown.Both);
             server.Close();
             Application.Exit();
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+
         }
 
        

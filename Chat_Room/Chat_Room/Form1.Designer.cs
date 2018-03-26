@@ -195,6 +195,7 @@
             this.Controls.Add(this.Public_Chat_textbox);
             this.Name = "Form1";
             this.Text = "Chat Room";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
