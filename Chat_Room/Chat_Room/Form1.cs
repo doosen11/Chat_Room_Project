@@ -19,6 +19,7 @@ using Microsoft.VisualBasic;
 
 namespace Chat_Room {
     public partial class Form1 : Form {
+        string privusername;
         public Form1() {
             InitializeComponent();
             InitTimer();
@@ -126,7 +127,7 @@ namespace Chat_Room {
             
             
             //testing code for initial server connection and text sending
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("131.212.37.193"), 9050);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             //try to connect to the server
@@ -185,7 +186,7 @@ namespace Chat_Room {
 
         private void Request_Private_Chat_button_Click(object sender, EventArgs e) {
 
-            string privusername;
+           
             
             //Acquires name that user wishes to communicate with
            do{
@@ -198,7 +199,7 @@ namespace Chat_Room {
            Request_Private_Chat_button.Enabled = false;
 
             //Data transmission for private chat
-           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("131.212.37.193"), 9050);
            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
            //try to connect to the server
@@ -213,17 +214,37 @@ namespace Chat_Room {
                Application.DoEvents();
                return;
            }
-           
-           
-           stream = new NetworkStream(server);
-           writer = new StreamWriter(stream);
 
-           Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+           string conuser = "~+" + privusername;
+           writer.Write(conuser);
+           writer.Flush();
+           
+            
+           // stream = new NetworkStream(server);
+           //writer = new StreamWriter(stream);
+
+           
+           
 
            //get the first response from server
            bdata = new byte[1024];
-           int recv = server.Receive(bdata); 
-           Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+           int recv = server.Receive(bdata);
+           string testdata = Encoding.ASCII.GetString(bdata, 0, recv);
+           
+            //If user connect is successfull
+            if (testdata == "~1")
+           {
+               Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+           }
+           //If user connection fails
+            else if(testdata == "~2")
+           {
+               Private_Chat_textbox.Text = "Failed to connect with requested user, please attempt again.";
+               Request_Private_Chat_button.Enabled = true;
+
+           
+           }
+            Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
            Application.DoEvents();
            string msg = username + ">" + "server" + ">login>";
            writer.Write(msg);
@@ -236,6 +257,10 @@ namespace Chat_Room {
         }
 
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
+            string msg;
+            msg = "You or " + privusername + ">has disconnected from the private chat";
+            writer.Write(msg);
+            writer.Flush();
 
         }
 

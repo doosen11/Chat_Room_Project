@@ -30,3 +30,12 @@ C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\De
 C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
 C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb
 >>>>>>> 64aa801f0395a2b14cb34686cc2cc11f16331b68
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe.config
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.pdb
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csprojResolveAssemblyReference.cache
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Form1.resources
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Properties.Resources.resources
+C:\Users\Garrett\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csproj.GenerateResource.Cache
