@@ -19,7 +19,10 @@ using Microsoft.VisualBasic;
 
 namespace Chat_Room {
     public partial class Form1 : Form {
+
+        bool userstat = false;
         string privusername;
+        
         public Form1() {
             InitializeComponent();
             InitTimer();
@@ -200,30 +203,13 @@ namespace Chat_Room {
 
            Request_Private_Chat_button.Enabled = false;
 
-            //Data transmission for private chat
-           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("131.212.37.193"), 9050);
-           server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-           //try to connect to the server
-           try
-           {
-               server.Connect(ipep);
-           }
-           catch (SocketException ev)
-           {
-               Private_Chat_textbox.Text = "Unable to connect to server. \r\n";
-               Private_Chat_textbox.Text += ev.ToString() + "\r\n";
-               Application.DoEvents();
-               return;
-           }
-
+        
            string conuser = "~+" + privusername;
            writer.Write(conuser);
            writer.Flush();
            
             
-           // stream = new NetworkStream(server);
-           //writer = new StreamWriter(stream);
+           
 
            
            
@@ -237,21 +223,20 @@ namespace Chat_Room {
             if (testdata == "~1")
            {
                Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
-           }
+               Application.DoEvents();
+
+            
+            }
            //If user connection fails
             else if(testdata == "~2")
            {
                Private_Chat_textbox.Text = "Failed to connect with requested user, please attempt again.";
                Request_Private_Chat_button.Enabled = true;
+               Application.DoEvents();
 
            
            }
-            Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
-           Application.DoEvents();
-           string msg = username + ">" + "server" + ">login>";
-           writer.Write(msg);
-           writer.Flush();
-           Thread.Sleep(100);
+          
           
    
 
@@ -260,9 +245,8 @@ namespace Chat_Room {
 
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
             string msg;
-            msg = "You or " + privusername + ">has disconnected from the private chat";
-            writer.Write(msg);
-            writer.Flush();
+            Private_Chat_textbox.Text = "You or " + privusername + " has disconnected from the private chat";
+            Request_Private_Chat_button.Enabled = true;
 
         }
 
