@@ -156,6 +156,49 @@ namespace Chat_Room {
 
         private void Request_Private_Chat_button_Click(object sender, EventArgs e) {
 
+            string privusername;
+            
+            //Acquires name that user wishes to communicate with
+           do{
+            
+            privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
+           } while (privusername == "");
+
+           Application.DoEvents();
+
+           Request_Private_Chat_button.Enabled = false;
+
+            //Data transmission for private chat
+           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+           server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+           //try to connect to the server
+           try
+           {
+               server.Connect(ipep);
+           }
+           catch (SocketException ev)
+           {
+               Private_Chat_textbox.Text = "Unable to connect to server. \r\n";
+               Private_Chat_textbox.Text += ev.ToString() + "\r\n";
+               Application.DoEvents();
+               return;
+           }
+           Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+           stream = new NetworkStream(server);
+           writer = new StreamWriter(stream);
+           //get the first response from server
+           bdata = new byte[1024];
+           int recv = server.Receive(bdata);
+           Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+           Application.DoEvents();
+           string msg = username + ">" + "server" + ">login>";
+           writer.Write(msg);
+           writer.Flush();
+           Thread.Sleep(100);
+            
+
+
         }
 
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
