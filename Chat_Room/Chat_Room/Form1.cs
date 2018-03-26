@@ -79,16 +79,15 @@ namespace Chat_Room {
         
         private void Login_button_Click(object sender, EventArgs e)
         {
-           // username = Text_Input.Text;
-            //Current_User_textbox.Text = "This User: " + username;
+           
 
-            do
-            {
+          //  do
+           // {
                 username = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
                 Application.DoEvents();
 
 
-            } while (username == "");
+           // } while (username == "");
 
             Current_User_textbox.Text = username;
             Application.DoEvents();
@@ -184,19 +183,24 @@ namespace Chat_Room {
                Application.DoEvents();
                return;
            }
-           Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+           
+           
            stream = new NetworkStream(server);
            writer = new StreamWriter(stream);
+
+           Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+
            //get the first response from server
            bdata = new byte[1024];
-           int recv = server.Receive(bdata);
+           int recv = server.Receive(bdata); 
            Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
            Application.DoEvents();
            string msg = username + ">" + "server" + ">login>";
            writer.Write(msg);
            writer.Flush();
            Thread.Sleep(100);
-            
+          
+   
 
 
         }
