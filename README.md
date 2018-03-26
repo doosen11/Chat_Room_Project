@@ -65,7 +65,7 @@
        * If the private chat room is already in use
        * If both clients requested eachother to chat with
      * The server will need to keep track of WHO requests WHO to chat with. If A requests to chat with B, but B requests to chat with C and C requests to chat with A then there is a deadlock condition. All three clients are stuck waiting to chat privately with the other. In this situation there could be a timer that will cancel private chat requests after a certain duration of time with no response from the other client. 
-   * Work Done:
+   * Work Done: Garrett is working on it.
    
          None.
 6. Error Handeling!
