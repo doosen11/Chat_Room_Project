@@ -60,6 +60,7 @@
             // 
             this.list_box_user.FormattingEnabled = true;
             this.list_box_user.Location = new System.Drawing.Point(453, 35);
+            this.list_box_user.MultiColumn = true;
             this.list_box_user.Name = "list_box_user";
             this.list_box_user.Size = new System.Drawing.Size(210, 238);
             this.list_box_user.TabIndex = 5;

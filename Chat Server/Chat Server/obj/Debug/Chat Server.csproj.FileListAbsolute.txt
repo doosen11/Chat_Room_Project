@@ -1,9 +1,8 @@
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe.config
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.pdb
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csprojResolveAssemblyReference.cache
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Form1.resources
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Properties.Resources.resources
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csproj.GenerateResource.Cache
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
-C:\Users\EE Student.EEAdmin060-6-PC\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe.config
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.pdb
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Form1.resources
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Properties.Resources.resources
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csproj.GenerateResource.Cache
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
+C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb

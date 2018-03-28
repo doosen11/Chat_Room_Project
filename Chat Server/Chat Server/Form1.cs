@@ -21,7 +21,13 @@ namespace Chat_Server {
         }
 
         private TcpListener server;
-
+        public  string will_this_work;
+        public class USER{
+            public string username;
+            public string status;
+        }
+        List<USER> USER_LIST = new List<USER> { };
+        
         private void Form1_Shown(object sender, System.EventArgs e) {
             start_server();
         }
@@ -58,28 +64,51 @@ namespace Chat_Server {
                 textBox1.Update();
             }
         }
+
+        private void update_client_msg() { 
+            //nothing right now...
+        }
         private void handle_msgReceived(){
 
             if (defines.message_arrived == true)
             {
+                USER temp_user = new USER();
+                temp_user = null;
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
-                string[] user = msg_fields[0].Split('#'); ;
+                string[] msg_fieldstemp = defines.client_message.Split('>');
+                string[] user = msg_fieldstemp[0].Split('#'); ;
+                
                 if (msg_fields[2] == "login")
                 {
-                    
-                    list_box_user.Items.Add(user[0]); //add login name in the source field
+                    temp_user = new USER();
+                    temp_user.username = user[0];
+                    temp_user.status = user[1];
+                    USER_LIST.Add(temp_user);
+                  //  Console.Write(msg_fields[0]);
+                     list_box_user.Items.Add(user[0] + "      " + user[1]); //add login name in the source field
                 }
                 else if (msg_fields[2] == "logout")
                 {
-                    list_box_user.Items.Remove(user[0]);
+                    temp_user = USER_LIST.FirstOrDefault(o => o.username == user[0]);//this is sort of hacky. It won't work if there are duplicate usernames.
+                    if (temp_user != null)  USER_LIST.Remove(temp_user);
+                    list_box_user.Items.Remove(temp_user.username + "      " + temp_user.status);//super hacky...
                 }
                 else if (msg_fields[2] == "msg")
                 {
                     //defines.last_client_msg = defines.clientMsg;
-                    defines.list_messages.Add(defines.client_message);
+                    
+                        //defines.list_messages.Add(defines.client_message);
+                    
+                    
+                    Console.Write("Inside handlemessage()" + defines.client_message);
+                  
+
+                    // update_client_msg();
 
                 }
+                
+                    
                 else
                 {
                     // do nothing here for other requests
@@ -107,6 +136,7 @@ namespace Chat_Server {
             public int thread_count;
 
             public void connection_handler() {
+               
                 int recv;
                 byte[] bdata = new byte[1024];
                 TcpClient client;
@@ -119,15 +149,24 @@ namespace Chat_Server {
                 writer.Flush();
 
                 while (true) {
+                   
                     bdata = new byte[1024];
+                   
                     recv = stream.Read(bdata, 0, bdata.Length);
                     if (recv == 0) break;
+                   
                     string str_recv = Encoding.ASCII.GetString(bdata, 0, recv);
-
-                    string[] message_field = str_recv.Split('>');
-
+                    
+                    string[] message_field = str_recv.Split('#','>');
+                    
+                    //Console.Write("before lock" + message_field[2] + "\r\n");
+                   //  Console.Write(message_field[1] + "\r\n");
+                    
                     lock (_lock) {
                         defines.client_message = str_recv + "\r\n";
+                        defines.list_messages.Add(defines.client_message);
+                        //hmm = message_field[0] + message_field[1] + "\r\n";
+                        //Console.Write("HELLO  "+ str_recv + "\r\n");
                         defines.message_arrived = true;
                     }
                     if (message_field[2] == "logout") {
@@ -137,24 +176,34 @@ namespace Chat_Server {
                     else if (message_field[2] == "user_list") {
                         string msg;
                         msg = "server>all>user_list>" + defines.user_list;
-                        writer.Write(msg);
-                        writer.Flush();
+
+                       
+                            writer.Write(msg);
+                            writer.Flush();
+                            
                         
                     }
                     else if (message_field[2] == "last_msg") {
                         string msg;
-                        if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
-                        else msg = "server>all>last_msg>No message available";
-
+                       
+                            if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
+                                
+                            else msg = "server>all>last_msg>No message available";
+                        //msg = defines.list_messages.LastOrDefault();
+                            Console.Write("WILL YOU WORK" + msg + "\r\n");
+                        
+                        //else msg = "";
                         writer.Write(msg);
                         writer.Flush();
+                       
                     }
+                
                     else {
                         writer.Write("Okay Client #" + thread_count.ToString() + "; \r\n Received: " + str_recv);
                         writer.Flush();
                     }
 
-
+                   // writer.Write("*" + defines.list_messages.LastOrDefault() + "\r\n");
                 }
                 writer.Close();
                 stream.Close();
