@@ -19,6 +19,10 @@ using Microsoft.VisualBasic;
 
 namespace Chat_Room {
     public partial class Form1 : Form {
+
+        bool userstat = false;
+        string privusername;
+        
         public Form1() {
             InitializeComponent();
             InitTimer();
@@ -27,11 +31,19 @@ namespace Chat_Room {
         //variables for server connection and sending data
         Socket server;
         byte[] bdata = new byte[1024];
+        byte[] bdatatwo = new byte[1024];
         NetworkStream stream;
         StreamWriter writer;
         public List<string> _items = new List<string>();
         private System.Windows.Forms.Timer user_list_timer;
-        // user_list = new ListBox();
+
+        //Records username
+        string username1 = "";
+        string username = "";
+        string old_msg = "";
+        string status = "public";
+        int temp;
+        static readonly object _lock = new object();
         
         /************************
          * The function below is a timer for updating the user list every 2 seconds 
@@ -39,20 +51,57 @@ namespace Chat_Room {
         
         public void InitTimer() {
             user_list_timer = new System.Windows.Forms.Timer();
-            user_list_timer.Tick += new EventHandler(update_user_list);       
+            //user_list_timer.Tick += new EventHandler(update_user_list);
+            user_list_timer.Tick += new EventHandler(get_messages);
             user_list_timer.Interval = 2000;
             user_list_timer.Start();
         }
+
+
         private void update_user_list(object sender, EventArgs e) {
            
-            if (username != "") {
+            //if (username1 != "") {
+            //    string msg;
+            //    msg = username1 + ">" + "server" + ">user_list>";
+            //    writer.Write(msg);
+            //    writer.Flush();
+            //    Application.DoEvents();
+            //    bdata = new byte[1024];
+            //    int recv;
+            //    lock (_lock) {
+            //         recv = server.Receive(bdata);
+            //    }
+            //        string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+                
+            //    int last_i = received_msg.LastIndexOf('>');
+
+            //    string[] u_list;
+            //    u_list = received_msg.Substring(last_i + 1).Split('/');
+
+            //    user_list.Items.Clear();
+            //    for (int i = 0; i < u_list.Length; i++) {
+            //        user_list.Items.Add(u_list[i]);
+            //    }
+            //}
+
+        }
+
+        /** *************************
+         * END UPDATE USER LIST STUFF
+         **************************** **/
+
+        private void get_messages(object sender, EventArgs e) {
+            if (username1 != "") {
                 string msg;
-                msg = username + ">" + "server" + ">user_list>";
+                msg = username1 + ">" + "server" + ">user_list>";
                 writer.Write(msg);
                 writer.Flush();
                 Application.DoEvents();
                 bdata = new byte[1024];
-                int recv = server.Receive(bdata);
+                int recv;
+               
+                    recv = server.Receive(bdata);
+                
                 string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
 
                 int last_i = received_msg.LastIndexOf('>');
@@ -66,35 +115,50 @@ namespace Chat_Room {
                 }
             }
 
+            if (username != "") {
+                
+                string msg;
+                msg = username + ">" + "server" + ">last_msg";
+                writer.Write(msg);
+                writer.Flush();
+                Application.DoEvents();
+               // Public_Chat_textbox.AppendText("Client sent: " + msg + "\r\n");
+                // wait for server response
+                bdata = new byte[1024];
+                // Thread.Sleep(500);
+                int recv;
+               
+                    recv = server.Receive(bdata);
+                            
+                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+                Console.Write(recv + "\r\n");
+                Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
+                //old_msg = received_msg;
+                
+                    if ( received_msg != old_msg) {
+                        Public_Chat_textbox.AppendText(received_msg + "\r\n");
+                        Console.Write("UPDATE THAT STUFF" + received_msg + "\r\n");
+                        
+                    }
+                    Application.DoEvents();
+                old_msg = received_msg;
+            }
+
         }
 
-        /** *************************
-         * END UPDATE USER LIST STUFF
-         **************************** **/
-        //Records username
-        string username = "";
-        
-        
-       
-        
         private void Login_button_Click(object sender, EventArgs e)
         {
-           
-
           //  do
            // {
-                username = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
-                Application.DoEvents();
-
-
+                username1 = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
+                username = username1 + "#" + status;
+                //Application.DoEvents();
            // } while (username == "");
-
-            Current_User_textbox.Text = username;
+            Current_User_textbox.Text = username1;
             Application.DoEvents();
 
             Login_button.Enabled = false;
-            
-            
+                     
             //testing code for initial server connection and text sending
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -115,11 +179,16 @@ namespace Chat_Room {
             //get the first response from server
             bdata = new byte[1024];
             int recv = server.Receive(bdata);
-            Public_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
-            Application.DoEvents();
-            string msg = username + ">" + "server" + ">login>";
-            writer.Write(msg);
-            writer.Flush();
+            temp = recv;
+          
+                Public_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+                Application.DoEvents();
+
+                string msg = username + ">" + "server" + ">login>";//username+status is sent as username
+                writer.Write(msg);
+                writer.Flush();
+                Console.Write("LOGGED IN " + "\r\n");
+            
             Thread.Sleep(100);
 
             //end testing code
@@ -132,17 +201,19 @@ namespace Chat_Room {
                 return;
             }
             //string destination = user_list.SelectedItem.ToString();
-            string msg = username + ">" + "Public" + ">msg>" + Text_Input.Text;
+            string msg = username1 + " " + ">msg>" + Text_Input.Text;
             writer.Write(msg);
             writer.Flush();
 
-            Public_Chat_textbox.Text += "Client sent: " + Text_Input.Text + "\r\n";
+           // Public_Chat_textbox.Text += "Client sent: " + Text_Input.Text + "\r\n";
             Application.DoEvents();
             bdata = new byte[1024];
             int recv = server.Receive(bdata);
+
+            
             Public_Chat_textbox.Text += "Server replied: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
             Application.DoEvents();
-
+            
         }
 
         private void Public_Chat_textbox_TextChanged(object sender, EventArgs e) {
@@ -155,64 +226,65 @@ namespace Chat_Room {
 
         private void Request_Private_Chat_button_Click(object sender, EventArgs e) {
 
-            string privusername;
-            
-            //Acquires name that user wishes to communicate with
-           do{
-            
-            privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
-           } while (privusername == "");
-
-           Application.DoEvents();
-
-           Request_Private_Chat_button.Enabled = false;
-
-            //Data transmission for private chat
-           IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
-           server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-           //try to connect to the server
-           try
-           {
-               server.Connect(ipep);
-           }
-           catch (SocketException ev)
-           {
-               Private_Chat_textbox.Text = "Unable to connect to server. \r\n";
-               Private_Chat_textbox.Text += ev.ToString() + "\r\n";
-               Application.DoEvents();
-               return;
-           }
            
-           
-           stream = new NetworkStream(server);
-           writer = new StreamWriter(stream);
-
-           Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
-
-           //get the first response from server
-           bdata = new byte[1024];
-           int recv = server.Receive(bdata); 
-           Private_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
-           Application.DoEvents();
-           string msg = username + ">" + "server" + ">login>";
-           writer.Write(msg);
-           writer.Flush();
-           Thread.Sleep(100);
+            
+           // //Acquires name that user wishes to communicate with
           
+            
+           // privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
+           
+
+            
+
+           //Application.DoEvents();
+
+           //if (privusername != "") {
+           //    Request_Private_Chat_button.Enabled = false;
+
+           //    string conuser = "~+" + privusername;
+
+           //    writer.Write(conuser);
+           //    writer.Flush();
+
+           //    //get the first response from server
+           //    bdata = new byte[1024];
+           //    int recv = server.Receive(bdata);
+           //    if (!Encoding.ASCII.GetString(bdata, 0, recv)[0].Equals("*")) {
+           //        string testdata = Encoding.ASCII.GetString(bdata, 0, recv);
+
+           //        //If user connect is successfull
+           //        if (testdata == "~1") {
+           //            Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+           //            Application.DoEvents();
+
+           //        }
+           //        //If user connection fails
+           //        else if (testdata == "~2") {
+           //            Private_Chat_textbox.Text = "Failed to connect with requested user, please attempt again.";
+           //            Request_Private_Chat_button.Enabled = true;
+           //            Application.DoEvents();
+
+
+           //        }
+           //    }
+
+           //}
    
 
 
         }
 
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
+            //string msg;
+            //Private_Chat_textbox.Text = "You or " + privusername + " has disconnected from the private chat";
+            //Request_Private_Chat_button.Enabled = true;
 
         }
 
         private void Logout_button_Click(object sender, EventArgs e)
         {
             string msg;
-            msg = username + ">" + "server" + ">logout>";
+            msg = username1 + ">" + "server" + ">logout>";
             writer.Write(msg);
             writer.Flush();
 
@@ -221,6 +293,11 @@ namespace Chat_Room {
             Application.Exit();
         }
 
+        private void Form1_Load(object sender, EventArgs e) {
+
+        }
+
+        
        
     }
 }
