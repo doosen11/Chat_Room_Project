@@ -94,15 +94,15 @@ namespace Chat_Server {
                     if (temp_user != null)  USER_LIST.Remove(temp_user);
                     list_box_user.Items.Remove(temp_user.username + "      " + temp_user.status);//super hacky...
                 }
-                else if (msg_fields[2] == "msg")
+                else if (msg_fields[1] == "msg")
                 {
                     //defines.last_client_msg = defines.clientMsg;
                     
-                        //defines.list_messages.Add(defines.client_message);
+                        defines.list_messages.Add(defines.client_message);
                     
                     
                     Console.Write("Inside handlemessage()" + defines.client_message);
-                  
+                    Console.Write("ALSO INSIDE handlemessage()" + defines.list_messages.LastOrDefault());
 
                     // update_client_msg();
 
@@ -157,16 +157,20 @@ namespace Chat_Server {
                    
                     string str_recv = Encoding.ASCII.GetString(bdata, 0, recv);
                     
-                    string[] message_field = str_recv.Split('#','>');
+                    string[] message_field = str_recv.Split('>');
                     
-                    //Console.Write("before lock" + message_field[2] + "\r\n");
-                   //  Console.Write(message_field[1] + "\r\n");
+                    Console.Write("before lock " + message_field[2] + "\r\n");
+                    
+                    for (int i = 0; i < message_field.Count(); i++) {
+                        Console.Write(message_field[i] + " ");    
+                    }
+                    Console.Write("\r\n");
                     
                     lock (_lock) {
                         defines.client_message = str_recv + "\r\n";
-                        defines.list_messages.Add(defines.client_message);
+                        //defines.list_messages.Add(defines.client_message);
                         //hmm = message_field[0] + message_field[1] + "\r\n";
-                        //Console.Write("HELLO  "+ str_recv + "\r\n");
+                        Console.Write("Inside the lock  "+ str_recv + " " + message_field[2] + "\r\n");
                         defines.message_arrived = true;
                     }
                     if (message_field[2] == "logout") {
@@ -185,19 +189,19 @@ namespace Chat_Server {
                     }
                     else if (message_field[2] == "last_msg") {
                         string msg;
-                       
-                            if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
-                                
-                            else msg = "server>all>last_msg>No message available";
+
+                        if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
+
+                        else msg = "server>all>last_msg>No message available";
                         //msg = defines.list_messages.LastOrDefault();
-                            Console.Write("WILL YOU WORK" + msg + "\r\n");
-                        
+                        Console.Write("Inside last_msg" + msg + "\r\n");
+
                         //else msg = "";
                         writer.Write(msg);
                         writer.Flush();
-                       
+
                     }
-                
+
                     else {
                         writer.Write("Okay Client #" + thread_count.ToString() + "; \r\n Received: " + str_recv);
                         writer.Flush();

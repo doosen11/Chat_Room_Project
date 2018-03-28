@@ -51,7 +51,7 @@ namespace Chat_Room {
         
         public void InitTimer() {
             user_list_timer = new System.Windows.Forms.Timer();
-            user_list_timer.Tick += new EventHandler(update_user_list);
+            //user_list_timer.Tick += new EventHandler(update_user_list);
             user_list_timer.Tick += new EventHandler(get_messages);
             user_list_timer.Interval = 2000;
             user_list_timer.Start();
@@ -60,6 +60,37 @@ namespace Chat_Room {
 
         private void update_user_list(object sender, EventArgs e) {
            
+            //if (username1 != "") {
+            //    string msg;
+            //    msg = username1 + ">" + "server" + ">user_list>";
+            //    writer.Write(msg);
+            //    writer.Flush();
+            //    Application.DoEvents();
+            //    bdata = new byte[1024];
+            //    int recv;
+            //    lock (_lock) {
+            //         recv = server.Receive(bdata);
+            //    }
+            //        string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+                
+            //    int last_i = received_msg.LastIndexOf('>');
+
+            //    string[] u_list;
+            //    u_list = received_msg.Substring(last_i + 1).Split('/');
+
+            //    user_list.Items.Clear();
+            //    for (int i = 0; i < u_list.Length; i++) {
+            //        user_list.Items.Add(u_list[i]);
+            //    }
+            //}
+
+        }
+
+        /** *************************
+         * END UPDATE USER LIST STUFF
+         **************************** **/
+
+        private void get_messages(object sender, EventArgs e) {
             if (username1 != "") {
                 string msg;
                 msg = username1 + ">" + "server" + ">user_list>";
@@ -68,11 +99,11 @@ namespace Chat_Room {
                 Application.DoEvents();
                 bdata = new byte[1024];
                 int recv;
-                lock (_lock) {
-                     recv = server.Receive(bdata);
-                }
-                    string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+               
+                    recv = server.Receive(bdata);
                 
+                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+
                 int last_i = received_msg.LastIndexOf('>');
 
                 string[] u_list;
@@ -83,15 +114,6 @@ namespace Chat_Room {
                     user_list.Items.Add(u_list[i]);
                 }
             }
-
-        }
-
-        /** *************************
-         * END UPDATE USER LIST STUFF
-         **************************** **/
-
-        private void get_messages(object sender, EventArgs e) {
-
 
             if (username != "") {
                 
@@ -105,17 +127,17 @@ namespace Chat_Room {
                 bdata = new byte[1024];
                 // Thread.Sleep(500);
                 int recv;
-              
+               
                     recv = server.Receive(bdata);
-                
+                            
                 string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
                 Console.Write(recv + "\r\n");
-                Console.Write(received_msg + "\r\n");
+                Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
                 //old_msg = received_msg;
                 
                     if ( received_msg != old_msg) {
                         Public_Chat_textbox.AppendText(received_msg + "\r\n");
-                        Console.Write(received_msg + "\r\n");
+                        Console.Write("UPDATE THAT STUFF" + received_msg + "\r\n");
                         
                     }
                     Application.DoEvents();
@@ -138,7 +160,7 @@ namespace Chat_Room {
             Login_button.Enabled = false;
                      
             //testing code for initial server connection and text sending
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("192.168.2.13"), 9050);
+            IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             //try to connect to the server
@@ -165,6 +187,7 @@ namespace Chat_Room {
                 string msg = username + ">" + "server" + ">login>";//username+status is sent as username
                 writer.Write(msg);
                 writer.Flush();
+                Console.Write("LOGGED IN " + "\r\n");
             
             Thread.Sleep(100);
 
@@ -188,8 +211,8 @@ namespace Chat_Room {
             int recv = server.Receive(bdata);
 
             
-                Public_Chat_textbox.Text += "Server replied: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
-                Application.DoEvents();
+            Public_Chat_textbox.Text += "Server replied: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+            Application.DoEvents();
             
         }
 
