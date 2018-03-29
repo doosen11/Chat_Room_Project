@@ -6,3 +6,12 @@ C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\D
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csproj.GenerateResource.Cache
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe.config
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.exe
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.pdb
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.exe
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\bin\Debug\Chat Server.pdb
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csprojResolveAssemblyReference.cache
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Form1.resources
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat_Server.Properties.Resources.resources
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat Server\Chat Server\obj\Debug\Chat Server.csproj.GenerateResource.Cache

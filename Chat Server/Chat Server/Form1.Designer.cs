@@ -27,6 +27,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.list_box_user = new System.Windows.Forms.ListBox();
+            this.shut_down_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -65,11 +66,22 @@
             this.list_box_user.Size = new System.Drawing.Size(210, 238);
             this.list_box_user.TabIndex = 5;
             // 
+            // shut_down_button
+            // 
+            this.shut_down_button.Location = new System.Drawing.Point(453, 370);
+            this.shut_down_button.Name = "shut_down_button";
+            this.shut_down_button.Size = new System.Drawing.Size(210, 41);
+            this.shut_down_button.TabIndex = 6;
+            this.shut_down_button.Text = "Shut Down";
+            this.shut_down_button.UseVisualStyleBackColor = true;
+            this.shut_down_button.Click += new System.EventHandler(this.shut_down_button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 465);
+            this.Controls.Add(this.shut_down_button);
             this.Controls.Add(this.list_box_user);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -87,6 +99,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox list_box_user;
+        private System.Windows.Forms.Button shut_down_button;
     }
 }
 
