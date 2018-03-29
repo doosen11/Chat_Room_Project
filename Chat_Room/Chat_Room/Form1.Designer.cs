@@ -99,7 +99,7 @@
             this.Request_Private_Chat_button.Name = "Request_Private_Chat_button";
             this.Request_Private_Chat_button.Size = new System.Drawing.Size(100, 37);
             this.Request_Private_Chat_button.TabIndex = 7;
-            this.Request_Private_Chat_button.Text = "Request Private Chat";
+            this.Request_Private_Chat_button.Text = "Start Private Chat";
             this.Request_Private_Chat_button.UseVisualStyleBackColor = true;
             this.Request_Private_Chat_button.Click += new System.EventHandler(this.Request_Private_Chat_button_Click);
             // 

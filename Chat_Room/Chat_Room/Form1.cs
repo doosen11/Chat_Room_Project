@@ -20,7 +20,7 @@ using Microsoft.VisualBasic;
 namespace Chat_Room {
     public partial class Form1 : Form {
 
-        bool userstat = false;
+        bool userispriv = false;
         string privusername;
         
         public Form1() {
@@ -228,56 +228,83 @@ namespace Chat_Room {
 
            
             
-           // //Acquires name that user wishes to communicate with
+            //Acquires name that user wishes to communicate with
           
             
-           // privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
+            privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
            
 
             
 
            //Application.DoEvents();
 
-           //if (privusername != "") {
-           //    Request_Private_Chat_button.Enabled = false;
+           if (privusername != "") {
+               Request_Private_Chat_button.Enabled = false;
 
-           //    string conuser = "~+" + privusername;
+               string msg2 = username + " " + ">5+>" + privusername;
+               
 
-           //    writer.Write(conuser);
-           //    writer.Flush();
+               writer.Write(msg2);
+               writer.Flush();
 
-           //    //get the first response from server
-           //    bdata = new byte[1024];
-           //    int recv = server.Receive(bdata);
-           //    if (!Encoding.ASCII.GetString(bdata, 0, recv)[0].Equals("*")) {
-           //        string testdata = Encoding.ASCII.GetString(bdata, 0, recv);
+               //get the first response from server
+               bdata = new byte[1024];
+               int recv = server.Receive(bdata);
+               if (!Encoding.ASCII.GetString(bdata, 0, recv)[0].Equals("*")) {
+                   string testdata = Encoding.ASCII.GetString(bdata, 0, recv);
 
-           //        //If user connect is successfull
-           //        if (testdata == "~1") {
-           //            Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
-           //            Application.DoEvents();
-
-           //        }
-           //        //If user connection fails
-           //        else if (testdata == "~2") {
-           //            Private_Chat_textbox.Text = "Failed to connect with requested user, please attempt again.";
-           //            Request_Private_Chat_button.Enabled = true;
-           //            Application.DoEvents();
+                   //If user connect is successfull
+                   if (testdata == "+1") {
+                       Private_Chat_textbox.Text = "Connected to the private chat with: " + privusername + "\r\n";
+                       userispriv = true;
+                       status = "Private";
 
 
-           //        }
-           //    }
+                       string msg;
+                       username = username1 + "#" + status;
+                       msg = username + ">" + "server" + ">login>";//username+status is sent as username
+                       writer.Write(msg);
+                       writer.Flush();
 
-           //}
+                      
+                      
+
+                     
+
+
+                   }
+                  //If user connection fails
+                   else if (testdata == "+2") {
+                       Private_Chat_textbox.Text = "Failed to connect with requested user, please attempt again.";
+                       Request_Private_Chat_button.Enabled = true;
+                       Application.DoEvents();
+
+
+                   }
+               }
+
+           }
    
 
 
         }
 
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
-            //string msg;
-            //Private_Chat_textbox.Text = "You or " + privusername + " has disconnected from the private chat";
-            //Request_Private_Chat_button.Enabled = true;
+
+            string msg = username + " " + ">6+>" + privusername;
+            writer.Write(msg);
+            writer.Flush();
+
+            Private_Chat_textbox.Text = "You have disconnected from the private chat";
+            Request_Private_Chat_button.Enabled = true;
+            userispriv = false;
+            
+            
+           
+
+           
+
+         
 
         }
 

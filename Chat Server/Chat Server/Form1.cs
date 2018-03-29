@@ -107,8 +107,23 @@ namespace Chat_Server {
                     // update_client_msg();
 
                 }
+
+
+                else if (msg_fields[1] == "5+")
+                {
+                    //temp_user.status = "Private";
                 
-                    
+                
+                
+                
+                }
+
+                else if (msg_fields[1] == "6+")
+                {
+                }
+
+
+
                 else
                 {
                     // do nothing here for other requests
@@ -187,7 +202,22 @@ namespace Chat_Server {
                             
                         
                     }
-                    else if (message_field[2] == "last_msg") {
+                    
+                    //Private Chat
+                   
+                    
+                    else if (message_field[1] == "5+")
+                    { 
+                        
+                        string msg = "+1";  
+                        writer.Write(msg);
+                        writer.Flush();
+                    
+                    }
+
+
+                    else if (message_field[2] == "last_msg")
+                    {
                         string msg;
 
                         if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
@@ -202,7 +232,8 @@ namespace Chat_Server {
 
                     }
 
-                    else {
+                    else
+                    {
                         writer.Write("Okay Client #" + thread_count.ToString() + "; \r\n Received: " + str_recv);
                         writer.Flush();
                     }
