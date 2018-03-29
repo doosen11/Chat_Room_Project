@@ -6,6 +6,7 @@ C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+<<<<<<< HEAD
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe.config
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
@@ -15,3 +16,14 @@ G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\D
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Form1.resources
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Properties.Resources.resources
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
+=======
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe.config
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.pdb
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csprojResolveAssemblyReference.cache
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Form1.resources
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.Properties.Resources.resources
+C:\Users\dsimo\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
+>>>>>>> 09b82507a45eeb64c16500d3b3d590a5644e1ad0

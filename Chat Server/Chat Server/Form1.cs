@@ -159,7 +159,7 @@ namespace Chat_Server {
                 NetworkStream stream = client.GetStream();
                 StreamWriter writer = new StreamWriter(stream);
 
-                string greeting = "Multithreaded server. \r\n";
+                string greeting = "Welcome to our Multithreaded server. \r\n";
                 writer.Write(greeting);
                 writer.Flush();
 
@@ -244,6 +244,17 @@ namespace Chat_Server {
                 stream.Close();
                 client.Close();
             }
+        }
+
+        private void shut_down_button_Click(object sender, EventArgs e)
+        {
+            string goodbye = "Server is shutting down \r\n Thanks for useing our Multithreaded server. \r\n";
+            Console.Write(goodbye);
+            //writer.Flush();
+            //Socket clientSocket = listener.EndAcceptSocket(ar);
+            //server.Shutdown(SocketShutdown.Both);
+            //server.Close();
+            Application.Exit();
         }
     }
 }

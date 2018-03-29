@@ -44,6 +44,7 @@
             // 
             // Public_Chat_textbox
             // 
+            this.Public_Chat_textbox.Enabled = false;
             this.Public_Chat_textbox.Location = new System.Drawing.Point(297, 69);
             this.Public_Chat_textbox.Multiline = true;
             this.Public_Chat_textbox.Name = "Public_Chat_textbox";
@@ -53,6 +54,7 @@
             // 
             // Private_Chat_textbox
             // 
+            this.Private_Chat_textbox.Enabled = false;
             this.Private_Chat_textbox.Location = new System.Drawing.Point(297, 259);
             this.Private_Chat_textbox.Multiline = true;
             this.Private_Chat_textbox.Name = "Private_Chat_textbox";
@@ -68,6 +70,7 @@
             // 
             // Current_User_textbox
             // 
+            this.Current_User_textbox.Enabled = false;
             this.Current_User_textbox.Location = new System.Drawing.Point(429, 12);
             this.Current_User_textbox.Name = "Current_User_textbox";
             this.Current_User_textbox.Size = new System.Drawing.Size(115, 20);
