@@ -64,8 +64,26 @@ namespace Chat_Room {
             if (username1 != "") {
                 string msg;
                 msg = username1 + ">" + "server" + ">user_list>";
-                writer.Write(msg);
-                writer.Flush();
+                try
+                {
+                    writer.Write(msg);
+                    writer.Flush();
+                }
+                catch (SocketException ev)
+                {
+                    Public_Chat_textbox.Text = "Server exception. \r\n";
+                    Public_Chat_textbox.Text += ev.ToString() + "\r\n";
+                    Application.DoEvents();
+                    return;
+                }
+                catch (IOException ev)
+                {
+                    Public_Chat_textbox.Text = "IO exception. \r\n";
+                    Public_Chat_textbox.Text += ev.ToString() + "\r\n";
+                    Application.DoEvents();
+                    return;
+                }
+                
                 Application.DoEvents();
                 bdata = new byte[1024];
                 int recv;
@@ -96,9 +114,17 @@ namespace Chat_Room {
                 bdata = new byte[1024];
 
                 int recv;
-               
+                try
+                {
                     recv = server.Receive(bdata);
-                            
+                }
+                catch (SocketException ev)
+                {
+                    Public_Chat_textbox.Text = "Server exception. \r\n";
+                    Public_Chat_textbox.Text += ev.ToString() + "\r\n";
+                    Application.DoEvents();
+                    return;
+                }           
                 string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
                 Console.Write(recv + "\r\n");
                 Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
@@ -311,8 +337,23 @@ namespace Chat_Room {
         {
             string msg;
             msg = username1 + ">" + "server" + ">logout>";
-            writer.Write(msg);
-            writer.Flush();
+            try
+            {
+                writer.Write(msg);
+                writer.Flush();
+            }
+            catch (SocketException ev)
+            {
+                Public_Chat_textbox.Text = "Server exception. \r\n";
+                Public_Chat_textbox.Text += ev.ToString() + "\r\n";
+                Application.DoEvents();
+            }
+            catch (IOException ev)
+            {
+                Public_Chat_textbox.Text = "IO exception. \r\n";
+                Public_Chat_textbox.Text += ev.ToString() + "\r\n";
+                Application.DoEvents();
+            }
 
             server.Shutdown(SocketShutdown.Both);
             server.Close();

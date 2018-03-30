@@ -21,6 +21,7 @@ namespace Chat_Server {
             Closed += new System.EventHandler(this.Form1_Closed);
         }
 
+        static bool running = true;
         private TcpListener server;
         public  string will_this_work;
       

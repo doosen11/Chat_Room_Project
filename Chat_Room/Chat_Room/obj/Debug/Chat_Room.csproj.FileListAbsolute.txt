@@ -6,6 +6,7 @@ G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\D
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
 G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+<<<<<<< HEAD
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe.config
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.exe
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\bin\Debug\Chat_Room.pdb
@@ -14,3 +15,6 @@ C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csproj.GenerateResource.Cache
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.exe
 C:\Users\Dawson\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.pdb
+=======
+G:\Windows Redirect\Documents\GitHub\Chat_Room_Project\Chat_Room\Chat_Room\obj\Debug\Chat_Room.csprojResolveAssemblyReference.cache
+>>>>>>> e0294d0509c16e3ac2fdf0128a272ba613ed3451
