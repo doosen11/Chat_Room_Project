@@ -112,14 +112,16 @@ namespace Chat_Server {
 
                 else if (msg_fields[1] == "5+")
                 {
+                    
                     privreq = msg_fields[2];
-                    USER priv_user = new USER();
+                    Console.Write(privreq);
+                    /* USER priv_user = new USER();
                     priv_user.username = privreq;
                     priv_user.status = "Private";
                     temp_user = USER_LIST.FirstOrDefault(o => o.username == priv_user.username);
                     if (temp_user != null) USER_LIST.Remove(temp_user);
                     USER_LIST.Add(priv_user);
-
+                    */
                 
                 
                 
