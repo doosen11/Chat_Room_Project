@@ -84,13 +84,13 @@ namespace Chat_Server {
                     temp_user.status = user[1];
                     defines.USER_LIST.Add(temp_user);
                   //  Console.Write(msg_fields[0]);
-                     list_box_user.Items.Add(user[0] + "      " + user[1]); //add login name in the source field
+                     list_box_user.Items.Add(user[0] + " " + user[1]); //add login name in the source field
                 }
                 else if (msg_fields[2] == "logout")
                 {
                     temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == user[0]);//this is sort of hacky. It won't work if there are duplicate usernames.
                     if (temp_user != null)  defines.USER_LIST.Remove(temp_user);
-                    list_box_user.Items.Remove(temp_user.username + "      " + temp_user.status);//super hacky...
+                    list_box_user.Items.Remove(temp_user.username + " " + temp_user.status);//super hacky...
                 }
                 else if (msg_fields[1] == "msg")
                 {
@@ -99,8 +99,8 @@ namespace Chat_Server {
                         defines.list_messages.Add(defines.client_message);
                     
                     
-                    Console.Write("Inside handlemessage()" + defines.client_message);
-                    Console.Write("ALSO INSIDE handlemessage()" + defines.list_messages.LastOrDefault());
+                  //  Console.Write("Inside handlemessage()" + defines.client_message);
+                  //  Console.Write("ALSO INSIDE handlemessage()" + defines.list_messages.LastOrDefault());
 
                     // update_client_msg();
 
@@ -110,7 +110,7 @@ namespace Chat_Server {
                 else if (msg_fields[1] == "privmsg")
                 {
                     //temp_user.status = "Private";
-                    string[] blah;
+                    
                     
                     defines.private_list_messages.Add(defines.client_message);
                    
@@ -119,6 +119,24 @@ namespace Chat_Server {
 
                 else if (msg_fields[1] == "6+")
                 {
+                    //end private chat
+                    defines.USER temp_user1 = new defines.USER();
+                    defines.USER temp_user_copy = new defines.USER();
+
+                    string[] blah = msg_fields[0].Split('*');
+                    Console.Write(blah[0] + " " + blah[1]  + "\r\n");
+                    temp_user1 = defines.USER_LIST.FirstOrDefault(o => o.username == blah[0]);
+                    Console.Write("WHATBLEAHEHSDF JELKJEF " + temp_user1.status + " " + temp_user1.username + "\r\n");
+                    temp_user_copy = temp_user1;
+                    defines.USER_LIST.Remove(temp_user1);
+                    temp_user_copy.status = "public";
+                    defines.USER_LIST.Add(temp_user_copy);
+
+                    //temp_user1 = defines.USER_LIST.FirstOrDefault(o => o.username == blah[1]);
+                    //temp_user_copy = temp_user;
+                    //defines.USER_LIST.Remove(temp_user1);
+                    //temp_user_copy.status = "public";
+                    //defines.USER_LIST.Add(temp_user_copy);
                 }
 
 
@@ -183,7 +201,7 @@ namespace Chat_Server {
                     lock (_lock) {
                         defines.client_message = str_recv + "\r\n";
                        
-                        Console.Write("Inside the lock  "+ str_recv + " " + message_field[2] + "\r\n");
+                   //     Console.Write("Inside the lock  "+ str_recv + " " + message_field[2] + "\r\n");
                         defines.message_arrived = true;
                     }
                     if (message_field[2] == "logout") {
@@ -192,30 +210,44 @@ namespace Chat_Server {
                     }
                     else if (message_field[2] == "user_list") {
                         string msg;
+                        defines.USER dummy_user = new defines.USER();
+                        //List<string> temp_list = new List<string>();
+                        defines.user_list = "";
+                        for (int i = 0; i < defines.USER_LIST.Count; i++) {
+                            dummy_user = defines.USER_LIST[i];
+                            string name = dummy_user.username;
+                            string status = dummy_user.status;
+                           // temp_list.Add(name + " " + status);
+                            defines.user_list += name + " " + status + "/";
+
+
+                        }
+                        defines.user_list = defines.user_list.Substring(0, defines.user_list.Length - 1);
                         msg = "server>all>user_list>" + defines.user_list;
 
-                       
                             writer.Write(msg);
                             writer.Flush();
-                            
-                        
+                
                     }
                     //
                     //Private Chat
-                   
-                    
-                    else if (message_field[1] == "5+")
-                    {
+
+                    else if (message_field[1] == "6+") { 
+                        
+
+                    }
+                    else if (message_field[1] == "5+") {
+                       //start private chat
                         string msg;
                         defines.USER temp_user;
                         string[] temp;
-                        
-                        
+
+
                         temp_user = new defines.USER();
                         temp = message_field[0].Split('#');
                         temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == temp[0]);
-                        Console.Write("WHAT ISNT WORKING???" +  temp_user.status + "\r\n");
-                    
+                       
+                        
                         if (temp_user.status == "public") {
                             msg = "+1";
                             temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == temp[0]);
@@ -224,33 +256,44 @@ namespace Chat_Server {
                             defines.USER_LIST.Add(temp_user);
                         }
                         else { msg = "+2"; }
-                        
-                       
+
+
                         writer.Write(msg);
                         writer.Flush();
-                    
+
                     }
 
-                    else if (message_field[2] == "private_msg") { 
+                    else if (message_field[2] == "private_msg") {
                         //get private messages
                         string msg;
-                        //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
-                         msg = "server>priv>private_msg>No message available";
-                        //writer.Write(msg);
-                        //writer.Flush();
-                         
+
+                        msg = "server>priv>private_msg>No message available";
+                        
                         string[] blah;
-                        string[] temp_priv = message_field[0].Split('*');
+                        string[] temp_priv = message_field[0].Split('*','>');
+
+
+                        
                         for (int i = 0; i < defines.private_list_messages.Count(); i++) {
-                            blah = defines.private_list_messages[i].Split('*');
-                            if(((blah[0] == temp_priv[0]) || (blah[0] == temp_priv[1])) && ((blah[1] == temp_priv[0])||(blah[1] == temp_priv[1]))){
-                                msg = defines.private_list_messages[i];
-                                defines.private_list_messages.Remove(msg);
-                                break;
-                             
+                            blah = defines.private_list_messages[i].Split('*','>');
+                            blah[1] = blah[1].Substring(0, blah[1].Length-1);
+                           
+                            //Console.Write(blah[0] + " " + blah[1] + " "+ temp_priv[0] + " " + temp_priv[1] + "\r\n");
+                            if (((blah[0] == temp_priv[0]) || (blah[0] == temp_priv[1])) ) {
+                                //Console.Write("WHAT?" + blah[0] + " " + blah[1] + " " + temp_priv[0] + " " + temp_priv[1] + "\r\n");
+                                //Console.Write("THIS IS MAYBE?" + blah[1] == temp_priv[1] + "\r\n");
+                                if ((blah[1] == temp_priv[0]) || (blah[1] == temp_priv[1])) {
+
+                                    msg = defines.private_list_messages[i];
+                                        if (temp_priv[0] != blah[0]) {
+                                            defines.private_list_messages.Remove(msg);
+                                    }
+                                    break;
+                                }
                             }
                             else msg = "server>priv>private_msg>No message available";
                         }
+                    
                         writer.Write(msg);
                         writer.Flush();
 
@@ -261,10 +304,7 @@ namespace Chat_Server {
                         if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
 
                         else msg = "server>all>last_msg>No message available";
-                        //msg = defines.list_messages.LastOrDefault();
-                        Console.Write("Inside last_msg" + msg + "\r\n");
-
-                        //else msg = "";
+                      
                         writer.Write(msg);
                         writer.Flush();
 
@@ -275,7 +315,7 @@ namespace Chat_Server {
                         writer.Flush();
                     }
 
-                   // writer.Write("*" + defines.list_messages.LastOrDefault() + "\r\n");
+  
                 }
                 writer.Close();
                 stream.Close();

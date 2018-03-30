@@ -70,7 +70,7 @@ namespace Chat_Room {
                 bdata = new byte[1024];
                 int recv;
                
-                    recv = server.Receive(bdata);
+                recv = server.Receive(bdata);
                 
                 string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
 
@@ -92,10 +92,9 @@ namespace Chat_Room {
                 writer.Write(msg);
                 writer.Flush();
                 Application.DoEvents();
-               // Public_Chat_textbox.AppendText("Client sent: " + msg + "\r\n");
-                // wait for server response
+
                 bdata = new byte[1024];
-                // Thread.Sleep(500);
+
                 int recv;
                
                     recv = server.Receive(bdata);
@@ -103,9 +102,9 @@ namespace Chat_Room {
                 string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
                 Console.Write(recv + "\r\n");
                 Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
-                //old_msg = received_msg;
+
                 
-                    if ( received_msg != old_msg) {
+                    if ( received_msg != old_msg && received_msg != "server>all>last_msg>No message available") {
                         Public_Chat_textbox.AppendText(received_msg + "\r\n");
                         Console.Write("UPDATE THAT STUFF" + received_msg + "\r\n");
                         
@@ -122,7 +121,7 @@ namespace Chat_Room {
                 //user sends the request with the user they are chatting with.
                 //server will look through a list of info to find the message and send it back
                 string msg;
-                msg = username + "*" + privusername + ">" + "server" + ">private_msg";
+                msg = username1 + "*" + privusername + ">" + "server" + ">private_msg";
                 writer.Write(msg);
                 writer.Flush();
                 Application.DoEvents();
@@ -134,18 +133,18 @@ namespace Chat_Room {
                
                     recv = server.Receive(bdata);
                             
-                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+                string received_msg2 = Encoding.ASCII.GetString(bdata, 0, recv);
                // Console.Write(recv + "\r\n");
                 //Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
                 //old_msg = received_msg;
-                
-                    if ( received_msg != old_msg) {
-                        Private_Chat_textbox.AppendText(received_msg + "\r\n");
-                        Console.Write("UPDATE THAT STUFF" + received_msg + "\r\n");
+                string[] received_msg_parsed = received_msg2.Split('*', '>');
+                if (received_msg2 != old_msg2 && received_msg2 != "server>priv>private_msg>No message available") {
+                        Private_Chat_textbox.AppendText(received_msg2 + "\r\n");
+                        Console.Write("UPDATE THAT STUFF" + received_msg2 + "\r\n");
                         
                     }
                     Application.DoEvents();
-                old_msg2 = received_msg;
+                old_msg2 = received_msg2;
             }
             
 
@@ -209,6 +208,7 @@ namespace Chat_Room {
             string msg;
             if (status == "Private") {
                 msg = username1 + "*" + privusername + " " + ">privmsg>" + Text_Input.Text;
+                //Private_Chat_textbox.Text += msg + "\r\n";
             }
             else msg = username1 + " " + ">msg>" + Text_Input.Text;
             
@@ -221,7 +221,7 @@ namespace Chat_Room {
             int recv = server.Receive(bdata);
 
             
-            Public_Chat_textbox.Text += "Server replied: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+          //  if(status == "public") Public_Chat_textbox.Text += "Server replied: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
             Application.DoEvents();
             
         }
@@ -235,16 +235,10 @@ namespace Chat_Room {
         }
 
         private void Request_Private_Chat_button_Click(object sender, EventArgs e) {
-
-           
-            
+       
             //Acquires name that user wishes to communicate with
-          
-            
+              
             privusername = Microsoft.VisualBasic.Interaction.InputBox("Enter requested username: ", "Username", "");
-           
-
-            
 
            //Application.DoEvents();
 
@@ -292,24 +286,17 @@ namespace Chat_Room {
 
 
         }
-        private void do_private_chat() {
-            while (status == "Private") { 
-            
-            
-            
-            //
-            
-            }
-        }
+     
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
 
-            string msg = username + " " + ">6+>" + privusername;
+            string msg = username1 + "*" + privusername + " " + ">6+>";
             writer.Write(msg);
             writer.Flush();
 
             Private_Chat_textbox.Text = "You have disconnected from the private chat";
             Request_Private_Chat_button.Enabled = true;
-            userispriv = false;
+
+            status = "public";
             
             
            
