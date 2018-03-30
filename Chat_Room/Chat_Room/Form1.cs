@@ -41,6 +41,7 @@ namespace Chat_Room {
         string username1 = "";
         string username = "";
         string old_msg = "";
+        string old_msg2 = "";
         string status = "public";
         int temp;
         static readonly object _lock = new object();
@@ -51,46 +52,15 @@ namespace Chat_Room {
         
         public void InitTimer() {
             user_list_timer = new System.Windows.Forms.Timer();
-            //user_list_timer.Tick += new EventHandler(update_user_list);
-            user_list_timer.Tick += new EventHandler(get_messages);
+            
+            user_list_timer.Tick += new EventHandler(get_stuff);
             user_list_timer.Interval = 2000;
             user_list_timer.Start();
         }
-
-
-        private void update_user_list(object sender, EventArgs e) {
            
-            //if (username1 != "") {
-            //    string msg;
-            //    msg = username1 + ">" + "server" + ">user_list>";
-            //    writer.Write(msg);
-            //    writer.Flush();
-            //    Application.DoEvents();
-            //    bdata = new byte[1024];
-            //    int recv;
-            //    lock (_lock) {
-            //         recv = server.Receive(bdata);
-            //    }
-            //        string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
-                
-            //    int last_i = received_msg.LastIndexOf('>');
 
-            //    string[] u_list;
-            //    u_list = received_msg.Substring(last_i + 1).Split('/');
-
-            //    user_list.Items.Clear();
-            //    for (int i = 0; i < u_list.Length; i++) {
-            //        user_list.Items.Add(u_list[i]);
-            //    }
-            //}
-
-        }
-
-        /** *************************
-         * END UPDATE USER LIST STUFF
-         **************************** **/
-
-        private void get_messages(object sender, EventArgs e) {
+        private void get_stuff(object sender, EventArgs e) {
+            //get user list
             if (username1 != "") {
                 string msg;
                 msg = username1 + ">" + "server" + ">user_list>";
@@ -114,7 +84,7 @@ namespace Chat_Room {
                     user_list.Items.Add(u_list[i]);
                 }
             }
-
+            //get public messages
             if (username != "") {
                 
                 string msg;
@@ -144,6 +114,37 @@ namespace Chat_Room {
                 old_msg = received_msg;
             }
 
+            //get Private messages
+
+            if(username != "" && status == "Private"){
+                string msg;
+                msg = username + ">" + "server" + ">private_msg";
+                writer.Write(msg);
+                writer.Flush();
+                Application.DoEvents();
+               
+                // wait for server response
+                bdata = new byte[1024];
+                
+                int recv;
+               
+                    recv = server.Receive(bdata);
+                            
+                string received_msg = Encoding.ASCII.GetString(bdata, 0, recv);
+               // Console.Write(recv + "\r\n");
+                //Console.Write("WRITE WHAT YOU GOT " + received_msg + "\r\n");
+                //old_msg = received_msg;
+                
+                    if ( received_msg != old_msg) {
+                        Private_Chat_textbox.AppendText(received_msg + "\r\n");
+                        Console.Write("UPDATE THAT STUFF" + received_msg + "\r\n");
+                        
+                    }
+                    Application.DoEvents();
+                old_msg2 = received_msg;
+            }
+            
+
         }
 
         private void Login_button_Click(object sender, EventArgs e)
@@ -151,7 +152,7 @@ namespace Chat_Room {
           //  do
            // {
                 username1 = Microsoft.VisualBasic.Interaction.InputBox("Enter Username: ", "User Login", "");
-                username = username1 + "#" + status;
+                username = username1 + "#" + "public";
                 //Application.DoEvents();
            // } while (username == "");
             Current_User_textbox.Text = username1;
@@ -181,7 +182,7 @@ namespace Chat_Room {
             int recv = server.Receive(bdata);
             temp = recv;
           
-                Public_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
+             //   Public_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
                 Application.DoEvents();
 
                 string msg = username + ">" + "server" + ">login>";//username+status is sent as username
@@ -201,7 +202,12 @@ namespace Chat_Room {
                 return;
             }
             //string destination = user_list.SelectedItem.ToString();
-            string msg = username1 + " " + ">msg>" + Text_Input.Text;
+            string msg;
+            if (status == "Private") {
+                msg = username1 + " " + ">privmsg>" + Text_Input.Text;
+            }
+            else msg = username1 + " " + ">msg>" + Text_Input.Text;
+            
             writer.Write(msg);
             writer.Flush();
 
@@ -250,7 +256,7 @@ namespace Chat_Room {
                //get the first response from server
                bdata = new byte[1024];
                int recv = server.Receive(bdata);
-               if (!Encoding.ASCII.GetString(bdata, 0, recv)[0].Equals("*")) {
+             
                    string testdata = Encoding.ASCII.GetString(bdata, 0, recv);
 
                    //If user connect is successfull
@@ -260,18 +266,12 @@ namespace Chat_Room {
                        status = "Private";
 
 
-                       string msg;
-                       username = username1 + "#" + status;
-                       msg = username + ">" + "server" + ">login>";//username+status is sent as username
-                       writer.Write(msg);
-                       writer.Flush();
-
-                      
-                      
-
-                     
-
-
+                       //string msg;
+                       //username = username1 + "#" + status;
+                       //msg = username + ">" + "server" + ">login>";//username+status is sent as username
+                       //writer.Write(msg);
+                       //writer.Flush();
+                       //do_private_chat();
                    }
                   //If user connection fails
                    else if (testdata == "+2") {
@@ -281,14 +281,22 @@ namespace Chat_Room {
 
 
                    }
-               }
+               
 
            }
    
 
 
         }
-
+        private void do_private_chat() {
+            while (status == "Private") { 
+            
+            
+            
+            //
+            
+            }
+        }
         private void End_Private_Chat_button_Click(object sender, EventArgs e) {
 
             string msg = username + " " + ">6+>" + privusername;
