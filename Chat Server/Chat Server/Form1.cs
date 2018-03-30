@@ -70,7 +70,12 @@ namespace Chat_Server {
 
             if (defines.message_arrived == true)
             {
+<<<<<<< HEAD
                 defines.USER temp_user = new defines.USER();
+=======
+                string privreq;
+                USER temp_user = new USER();
+>>>>>>> baf2e5851fbaaa2a22d19d693cee66a91d0b6dff
                 temp_user = null;
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
@@ -109,9 +114,21 @@ namespace Chat_Server {
 
                 else if (msg_fields[1] == "privmsg")
                 {
+<<<<<<< HEAD
                     //temp_user.status = "Private";
 
                     defines.private_list_messages.Add(defines.client_message);
+=======
+                    privreq = msg_fields[2];
+                    USER priv_user = new USER();
+                    priv_user.username = privreq;
+                    priv_user.status = "Private";
+                    temp_user = USER_LIST.FirstOrDefault(o => o.username == priv_user.username);
+                    if (temp_user != null) USER_LIST.Remove(temp_user);
+                    USER_LIST.Add(priv_user);
+
+                
+>>>>>>> baf2e5851fbaaa2a22d19d693cee66a91d0b6dff
                 
                 
                 }
