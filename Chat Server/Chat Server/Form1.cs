@@ -316,21 +316,21 @@ namespace Chat_Server {
                         //get private messages
                         string msg;
 
-<<<<<<< HEAD
-                        msg = "server>priv>private_msg>No message available";
+
+                        //msg = "server>priv>private_msg>No message available";
                         
-=======
-                        if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
-                        else msg = "server>priv>private_msg>No message available";
-                        writer.Write(msg);
-                        writer.Flush();
+
+                        //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
+                        //else msg = "server>priv>private_msg>No message available";
+                        //writer.Write(msg);
+                        //writer.Flush();
 
                         //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
                          msg = "server>priv>private_msg>No message available";
                         //writer.Write(msg);
                         //writer.Flush();
                          
->>>>>>> e0294d0509c16e3ac2fdf0128a272ba613ed3451
+
                         string[] blah;
                         string[] temp_priv = message_field[0].Split('*','>');
 

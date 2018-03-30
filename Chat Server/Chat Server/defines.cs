@@ -18,9 +18,6 @@ namespace Chat_Server {
         static public List<string> list_messages = new List<string>();
         static public List<string> private_list_messages = new List<string>();
         static public List<USER> USER_LIST = new List<USER>();
-<<<<<<< HEAD
-        
-=======
->>>>>>> e0294d0509c16e3ac2fdf0128a272ba613ed3451
+
     }
 }
