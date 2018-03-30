@@ -21,6 +21,7 @@ namespace Chat_Server {
             Closed += new System.EventHandler(this.Form1_Closed);
         }
 
+        static bool running = true;
         private TcpListener server;
         public  string will_this_work;
       
@@ -45,13 +46,18 @@ namespace Chat_Server {
             textBox1.Text = "Waiting for client. \r\n";
             Application.DoEvents();
 
+           
+
+            
+            
             int threads = 0;
-            while (true) {
-                while (!server.Pending()) { 
+            while (running) {
+                while (running && !server.Pending()) { 
                     //handle recieved messages
                     handle_msgReceived();
                     Application.DoEvents();
                 }
+                if (!running) return;
                 threads++;
                 ConnectionThread newconnection = new ConnectionThread();
                 newconnection.thread_listener = this.server;
@@ -67,18 +73,18 @@ namespace Chat_Server {
             //nothing right now...
         }
         private void handle_msgReceived(){
-
+            if (!running) return;
+           
             if (defines.message_arrived == true)
             {
-<<<<<<< HEAD
+
 
                 defines.USER temp_user = new defines.USER();
                 string privreq;
                 //USER temp_user = new USER();
 
-=======
-                defines.USER temp_user = new defines.USER();
->>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
+                //defines.USER temp_user = new defines.USER();
+
                 temp_user = null;
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
@@ -120,7 +126,7 @@ namespace Chat_Server {
                     //temp_user.status = "Private";
                     string[] blah;
                     
-<<<<<<< HEAD
+
 
                     //temp_user.status = "Private";
 
@@ -138,10 +144,10 @@ namespace Chat_Server {
                 
 
                 
-=======
+
                     defines.private_list_messages.Add(defines.client_message);
                    
->>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
+
                 
                 }
 
@@ -182,15 +188,27 @@ namespace Chat_Server {
                 int recv;
                 byte[] bdata = new byte[1024];
                 TcpClient client;
-                client = thread_listener.AcceptTcpClient();
-                NetworkStream stream = client.GetStream();
-                StreamWriter writer = new StreamWriter(stream);
+                NetworkStream stream;
+                StreamWriter writer;
+                try
+                {
+                    client = thread_listener.AcceptTcpClient();
+                    stream = client.GetStream();
+                    writer = new StreamWriter(stream);
+                }
+                catch (SocketException ev)
+                {
+                    Console.Write("Server Exception. \r\n");
+                    Console.Write(ev.ToString() + "\r\n");
+                    Application.DoEvents();
+                    return;
+                }
 
                 string greeting = "Welcome to our Multithreaded server. \r\n";
                 writer.Write(greeting);
                 writer.Flush();
 
-                while (true) {
+                while (running) {
                    
                     bdata = new byte[1024];
                    
@@ -201,6 +219,9 @@ namespace Chat_Server {
                     
                     string[] message_field = str_recv.Split('>');
                     
+                    
+
+
                     //Console.Write("before lock " + message_field[2] + "\r\n");
                     
                     //for (int i = 0; i < message_field.Count(); i++) {
@@ -262,12 +283,12 @@ namespace Chat_Server {
                     else if (message_field[2] == "private_msg") { 
                         //get private messages
                         string msg;
-<<<<<<< HEAD
+
                         if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
                         else msg = "server>priv>private_msg>No message available";
                         writer.Write(msg);
                         writer.Flush();
-=======
+
                         //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
                          msg = "server>priv>private_msg>No message available";
                         //writer.Write(msg);
@@ -288,7 +309,7 @@ namespace Chat_Server {
                         writer.Write(msg);
                         writer.Flush();
 
->>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
+
                     }
                     else if (message_field[2] == "last_msg") {
                         string msg;
@@ -320,12 +341,8 @@ namespace Chat_Server {
 
         private void shut_down_button_Click(object sender, EventArgs e)
         {
-            string goodbye = "Server is shutting down \r\n Thanks for useing our Multithreaded server. \r\n";
-            Console.Write(goodbye);
-            //writer.Flush();
-            //Socket clientSocket = listener.EndAcceptSocket(ar);
-            //server.Shutdown(SocketShutdown.Both);
-            //server.Close();
+            running = false;
+            server.Stop();
             Application.Exit();
         }
     }
