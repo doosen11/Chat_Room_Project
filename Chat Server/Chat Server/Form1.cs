@@ -16,19 +16,17 @@ namespace Chat_Server {
     public partial class Form1 : Form {
         public Form1() {
             InitializeComponent();
+
             Shown += new EventHandler(Form1_Shown);
             Closed += new System.EventHandler(this.Form1_Closed);
         }
 
         private TcpListener server;
         public  string will_this_work;
-        public class USER{
-            public string username;
-            public string status;
-        }
-        List<USER> USER_LIST = new List<USER> { };
-        
+      
+      
         private void Form1_Shown(object sender, System.EventArgs e) {
+             //List<USER> USER_LIST = new List<USER> { };
             start_server();
         }
         private void Form1_Closed(object sender, System.EventArgs e) {
@@ -72,8 +70,7 @@ namespace Chat_Server {
 
             if (defines.message_arrived == true)
             {
-                string privreq;
-                USER temp_user = new USER();
+                defines.USER temp_user = new defines.USER();
                 temp_user = null;
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
@@ -82,17 +79,17 @@ namespace Chat_Server {
                 
                 if (msg_fields[2] == "login")
                 {
-                    temp_user = new USER();
+                    temp_user = new defines.USER();
                     temp_user.username = user[0];
                     temp_user.status = user[1];
-                    USER_LIST.Add(temp_user);
+                    defines.USER_LIST.Add(temp_user);
                   //  Console.Write(msg_fields[0]);
                      list_box_user.Items.Add(user[0] + "      " + user[1]); //add login name in the source field
                 }
                 else if (msg_fields[2] == "logout")
                 {
-                    temp_user = USER_LIST.FirstOrDefault(o => o.username == user[0]);//this is sort of hacky. It won't work if there are duplicate usernames.
-                    if (temp_user != null)  USER_LIST.Remove(temp_user);
+                    temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == user[0]);//this is sort of hacky. It won't work if there are duplicate usernames.
+                    if (temp_user != null)  defines.USER_LIST.Remove(temp_user);
                     list_box_user.Items.Remove(temp_user.username + "      " + temp_user.status);//super hacky...
                 }
                 else if (msg_fields[1] == "msg")
@@ -110,20 +107,13 @@ namespace Chat_Server {
                 }
 
 
-                else if (msg_fields[1] == "5+")
+                else if (msg_fields[1] == "privmsg")
                 {
+                    //temp_user.status = "Private";
+                    string[] blah;
                     
-                    privreq = msg_fields[2];
-                    Console.Write(privreq);
-                    /* USER priv_user = new USER();
-                    priv_user.username = privreq;
-                    priv_user.status = "Private";
-                    temp_user = USER_LIST.FirstOrDefault(o => o.username == priv_user.username);
-                    if (temp_user != null) USER_LIST.Remove(temp_user);
-                    USER_LIST.Add(priv_user);
-                    */
-                
-                
+                    defines.private_list_messages.Add(defines.client_message);
+                   
                 
                 }
 
@@ -183,17 +173,16 @@ namespace Chat_Server {
                     
                     string[] message_field = str_recv.Split('>');
                     
-                    Console.Write("before lock " + message_field[2] + "\r\n");
+                    //Console.Write("before lock " + message_field[2] + "\r\n");
                     
-                    for (int i = 0; i < message_field.Count(); i++) {
-                        Console.Write(message_field[i] + " ");    
-                    }
+                    //for (int i = 0; i < message_field.Count(); i++) {
+                    //    Console.Write(message_field[i] + " ");    
+                    //}
                     Console.Write("\r\n");
                     
                     lock (_lock) {
                         defines.client_message = str_recv + "\r\n";
-                        //defines.list_messages.Add(defines.client_message);
-                        //hmm = message_field[0] + message_field[1] + "\r\n";
+                       
                         Console.Write("Inside the lock  "+ str_recv + " " + message_field[2] + "\r\n");
                         defines.message_arrived = true;
                     }
@@ -211,22 +200,62 @@ namespace Chat_Server {
                             
                         
                     }
-                    
+                    //
                     //Private Chat
                    
                     
                     else if (message_field[1] == "5+")
-                    { 
+                    {
+                        string msg;
+                        defines.USER temp_user;
+                        string[] temp;
                         
-                        string msg = "+1";  
+                        
+                        temp_user = new defines.USER();
+                        temp = message_field[0].Split('#');
+                        temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == temp[0]);
+                        Console.Write("WHAT ISNT WORKING???" +  temp_user.status + "\r\n");
+                    
+                        if (temp_user.status == "public") {
+                            msg = "+1";
+                            temp_user = defines.USER_LIST.FirstOrDefault(o => o.username == temp[0]);
+                            defines.USER_LIST.Remove(temp_user);
+                            temp_user.status = "Private";
+                            defines.USER_LIST.Add(temp_user);
+                        }
+                        else { msg = "+2"; }
+                        
+                       
                         writer.Write(msg);
                         writer.Flush();
                     
                     }
 
+                    else if (message_field[2] == "private_msg") { 
+                        //get private messages
+                        string msg;
+                        //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
+                         msg = "server>priv>private_msg>No message available";
+                        //writer.Write(msg);
+                        //writer.Flush();
+                         
+                        string[] blah;
+                        string[] temp_priv = message_field[0].Split('*');
+                        for (int i = 0; i < defines.private_list_messages.Count(); i++) {
+                            blah = defines.private_list_messages[i].Split('*');
+                            if(((blah[0] == temp_priv[0]) || (blah[0] == temp_priv[1])) && ((blah[1] == temp_priv[0])||(blah[1] == temp_priv[1]))){
+                                msg = defines.private_list_messages[i];
+                                defines.private_list_messages.Remove(msg);
+                                break;
+                             
+                            }
+                            else msg = "server>priv>private_msg>No message available";
+                        }
+                        writer.Write(msg);
+                        writer.Flush();
 
-                    else if (message_field[2] == "last_msg")
-                    {
+                    }
+                    else if (message_field[2] == "last_msg") {
                         string msg;
 
                         if (defines.list_messages.Count != 0) msg = defines.list_messages.LastOrDefault();
@@ -241,8 +270,7 @@ namespace Chat_Server {
 
                     }
 
-                    else
-                    {
+                    else {
                         writer.Write("Okay Client #" + thread_count.ToString() + "; \r\n Received: " + str_recv);
                         writer.Flush();
                     }
