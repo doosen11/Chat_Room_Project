@@ -117,8 +117,12 @@ namespace Chat_Room {
             //get Private messages
 
             if(username != "" && status == "Private"){
+                
+                //thought process here.
+                //user sends the request with the user they are chatting with.
+                //server will look through a list of info to find the message and send it back
                 string msg;
-                msg = username + ">" + "server" + ">private_msg";
+                msg = username + "*" + privusername + ">" + "server" + ">private_msg";
                 writer.Write(msg);
                 writer.Flush();
                 Application.DoEvents();
@@ -181,7 +185,7 @@ namespace Chat_Room {
             bdata = new byte[1024];
             int recv = server.Receive(bdata);
             temp = recv;
-          
+          //
              //   Public_Chat_textbox.Text += "Server Response: " + Encoding.ASCII.GetString(bdata, 0, recv) + "\r\n";
                 Application.DoEvents();
 
@@ -204,7 +208,7 @@ namespace Chat_Room {
             //string destination = user_list.SelectedItem.ToString();
             string msg;
             if (status == "Private") {
-                msg = username1 + " " + ">privmsg>" + Text_Input.Text;
+                msg = username1 + "*" + privusername + " " + ">privmsg>" + Text_Input.Text;
             }
             else msg = username1 + " " + ">msg>" + Text_Input.Text;
             

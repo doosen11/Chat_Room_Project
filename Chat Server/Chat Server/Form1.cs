@@ -70,11 +70,15 @@ namespace Chat_Server {
 
             if (defines.message_arrived == true)
             {
+<<<<<<< HEAD
 
                 defines.USER temp_user = new defines.USER();
                 string privreq;
                 //USER temp_user = new USER();
 
+=======
+                defines.USER temp_user = new defines.USER();
+>>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
                 temp_user = null;
                 this.textBox1.AppendText( defines.client_message);
                 string[] msg_fields = defines.client_message.Split('>');
@@ -113,7 +117,10 @@ namespace Chat_Server {
 
                 else if (msg_fields[1] == "privmsg")
                 {
+                    //temp_user.status = "Private";
+                    string[] blah;
                     
+<<<<<<< HEAD
 
                     //temp_user.status = "Private";
 
@@ -131,6 +138,10 @@ namespace Chat_Server {
                 
 
                 
+=======
+                    defines.private_list_messages.Add(defines.client_message);
+                   
+>>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
                 
                 }
 
@@ -217,7 +228,7 @@ namespace Chat_Server {
                             
                         
                     }
-                    
+                    //
                     //Private Chat
                    
                     
@@ -251,10 +262,33 @@ namespace Chat_Server {
                     else if (message_field[2] == "private_msg") { 
                         //get private messages
                         string msg;
+<<<<<<< HEAD
                         if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
                         else msg = "server>priv>private_msg>No message available";
                         writer.Write(msg);
                         writer.Flush();
+=======
+                        //if (defines.private_list_messages.Count != 0) msg = defines.private_list_messages.LastOrDefault();
+                         msg = "server>priv>private_msg>No message available";
+                        //writer.Write(msg);
+                        //writer.Flush();
+                         
+                        string[] blah;
+                        string[] temp_priv = message_field[0].Split('*');
+                        for (int i = 0; i < defines.private_list_messages.Count(); i++) {
+                            blah = defines.private_list_messages[i].Split('*');
+                            if(((blah[0] == temp_priv[0]) || (blah[0] == temp_priv[1])) && ((blah[1] == temp_priv[0])||(blah[1] == temp_priv[1]))){
+                                msg = defines.private_list_messages[i];
+                                defines.private_list_messages.Remove(msg);
+                                break;
+                             
+                            }
+                            else msg = "server>priv>private_msg>No message available";
+                        }
+                        writer.Write(msg);
+                        writer.Flush();
+
+>>>>>>> 93607fcda67f87291b18c7a4aad2ac2295b39492
                     }
                     else if (message_field[2] == "last_msg") {
                         string msg;
